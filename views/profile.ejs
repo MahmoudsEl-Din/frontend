@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+    background:url(/images/profile_background.jpg);
+    background-size:100% auto;
+    background-attachment: fixed;
+}
+button{
+    background-color: rgba(150, 133, 143, 0.5);
+    border: 1px solid black;
+    border-radius: 20%;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+#header {
+    text-align:center;
+    padding:5px;
+}
+#nav{
+    padding: 0 20%;
+    line-height: 300%;  
+}
+#button{
+    padding:0 20%;
+    float: left;
+}
+a.button {
+    border: 3px solid black;
+    border-radius: 20%;
+    text-align:center;
+    width: 150px;
+    position: relative;
+    left: 25px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: black;
+    background-color: rgba(109, 121, 147, 0.5);
+}
+a.back {
+    font-size: 14px;
+    font-family:"Abril Fatface",cursive;
+
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position:fixed;
+
+    top:20px;
+    right:30px;
+    color: white;
+    background-color: #6D7993;
+    border-radius: 2px;
+    border: 0;
+}
+form{
+    padding: 0 20%;
+    text-align:center;
+}
+#photo{
+    float:right;
+}
+
+.container {
+    font-size: 120%;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #6d7993;
+    border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: #dbd6d9;
+}
+
+.container input:checked ~ .checkmark {
+    background-color: #96858f;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="header">
+<div id="button">
+<a href="/search" class="back">Back</a>
+</div>
+<h1><%= type %> <%= name %>'s profile</h1>
+</div>
+
+<div id="nav">
+ <div id="photo">
+<img src="/images/<%= id %>.jpg" width="200px" height="200px"/><br>
+<a href="/chat/<%= id %>" class="button">Send Message</a>
+ </div>
+<h3>
+Name:&nbsp;&nbsp;<%=name %><br>
+Gender:&nbsp;&nbsp;<%= gender %><br>
+Age:&nbsp;&nbsp;<%= age %><br>
+Email:&nbsp;&nbsp;<%= email %><br>
+Address:&nbsp;&nbsp;<%= address %><br>
+Contact Number:&nbsp;&nbsp;<%= contact %><br>
+Would Like to Teach:&nbsp;&nbsp;<%= skill %><br>
+Introduction:&nbsp;&nbsp;<%= intro %><br>
+Rating:&nbsp;&nbsp;<%= rating %>/5 (<%= ratnum %> ratings)<br>
+</h3>
+</div>
+
+<form role="form"
+action="/process" method="POST">
+    <input type="hidden" name="id" value="<%= id %>">
+    <label class="container">1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" value="1" name="rating">
+        <span class="checkmark"></span>
+    </label>
+    <label class="container">2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" value="2" name="rating">
+        <span class="checkmark"></span>
+    </label>
+    <label class="container">3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" checked="checked" value="3" name="rating">
+        <span class="checkmark"></span>
+    </label>
+    <label class="container">4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" value="4" name="rating">
+        <span class="checkmark"></span>
+    </label>
+     <label class="container">5
+        <input type="radio" value="5" name="rating">
+        <span class="checkmark"></span>
+     </label>
+<br><br>
+<button type="submit">Rate</button>
+</form>
+
+</body>
+</html>

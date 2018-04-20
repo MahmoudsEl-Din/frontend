@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html, body{
+    height: 100%;
+    background:url(/images/profile_background.jpg);
+    background-size:100% auto;
+    background-attachment: fixed;
+    padding: auto 25;
+}
+#button{
+ padding:0 20%;
+ float: left;
+}
+#header {
+    color: black;
+    text-align:center;
+    padding:5px;
+}
+
+a.back {
+ font-size: 14px;
+ font-family:"Abril Fatface",cursive;
+
+ width: 120px;
+ height: 30px;
+ line-height: 30px;
+ text-align: center;
+ position:fixed;
+
+ top:20px;
+ right:30px;
+ color: white;
+ background-color: #6D7993;
+ border-radius: 2px;
+ border: 0;
+}
+
+.container {
+ border: 5px solid black;
+ margin: 0 auto;
+ max-width: 800px;
+ height: 60%;
+ padding: 0 20px;
+ overflow: scroll;
+}
+
+.send_msg {
+ margin: 1% auto;
+ max-width: 800px;
+ padding: 0 20px;
+}
+
+.message {
+ border: 5px solid black;
+ background-color: rgba(109, 121, 147, 0.5);
+ border-radius: 5px;
+ padding: 10px;
+ margin: 10px 0;
+}
+
+.send {
+ border-color: black;
+ background-color: rgba(150, 133, 143, 0.5);
+}
+
+.message::after {
+ content: "";
+ clear: both;
+ display: table;
+}
+
+.message img {
+ float: left;
+ max-width: 60px;
+ width: 100%;
+ margin-right: 20px;
+ border-radius: 50%;
+}
+
+.message img.right {
+ float: right;
+ margin-left: 20px;
+ margin-right:0;
+}
+
+.time-right {
+ float: right;
+ color: white;
+}
+
+.time-left {
+ float: left;
+ color: white;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #96858f;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6d7993;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #96858f;
+}
+
+textarea {
+    color: black;
+    font-size: 120%;
+    width: 95%;
+    height: 80px;
+    border: 5px solid black;
+    background-color: rgba(150, 133, 143, 0.5);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+::placeholder {
+    color: black;
+}
+
+button {
+    background-color: rgba(109, 121, 147, 0.5);
+    border: 5px solid black;
+    border-radius: 20%;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    float:right;
+}
+</style>
+</head>
+
+<body>
+
+<div id="header">
+ <div id="button">
+<a href="/profile/<%= id %>" class="back">Back</a>
+ </div>
+ <h1>My chat with <%= type %> <%= name %></h1>
+</div>
+<div class="container">
+
+ <div>
+     <% for (var i = 0; i < block.length; i++) { %>
+     <%if (block[i][0] == "message") { %>
+<div class="<%= block[i][0] %>">
+ <img src="/images/<%= user %>.jpg" alt="Photo" style="width:100%;">
+ <p><%= block[i][2] %></p>
+ <span class="time-right"><%= block[i][1] %></span>
+</div>
+     <% } else{ %>
+  <div class="<%= block[i][0] %>">
+   <img src="/images/<%= id %>.jpg" alt="Photo" class="right" style="width:100%;">
+   <p><%= block[i][2] %></p>
+   <span class="time-left"><%= block[i][1] %></span>
+  </div>
+     <% } %>
+     <% } %>
+ </div>
+
+</div>
+
+<div class="send_msg">
+<textarea placeholder="Enter text here...
+If You want to refresh page to receive new message, don't enter anything then click Send/Refresh button"
+          name="content" form="message"></textarea>
+<form role="form" action="/message" id="message" method="POST">
+ <input type="hidden" name="to" value="<%= id %>">
+ <input type="hidden" name="from" value="<%= user %>">
+ <button type="submit">Send/Refresh</button>
+</form>
+</div>>
+
+</body>
+</html>

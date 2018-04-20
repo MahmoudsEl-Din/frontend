@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in</title>
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css"/>
+    <script type="text/javascript" src="/javascripts/login.js"></script>
+    <input type="button" id="signup" value="Sign up" onclick="SignUp();"/>
+</head>
+
+<body>
+
+<div id="login_frame">
+
+    <p id="image_logo"><img src="http://www.stormbowling.com/medias/Storm_Logo_Outline.png"height="100" width="200"></p>
+
+    <form method="post" action="/javascripts/login.js">
+
+        <p><label class="label_input">Username</label><input type="username" id="username" class="text_field"/></p>
+        <p><label class="label_input">Password</label><input type="password" id="password" class="text_field"/></p>
+
+        <div id="login_control">
+            <input type="button" id="btn_login" value="Log in" onclick="login();"/>
+            <a id="forget_pwd" href="/forget">Forget your password?</a>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

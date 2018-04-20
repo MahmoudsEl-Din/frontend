@@ -1,0 +1,397 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+
+      /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+
+          background-image: url("https://source.unsplash.com/vl0PnsiitxY/1600x900");
+        }
+
+           /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {height: 750px}
+    
+        /* Set gray background color and 100% height */
+        .sidenav {
+          background-color: #D5D5D5;
+          height: 100%;
+        }
+
+        #mapcolumn{
+          visibility: hidden;
+        }
+    
+         #map {
+          height: 500px;
+          width: 100%;
+          
+          margin-top: 20px;
+         }
+         #search{
+          padding-left: 50px;
+          padding-right: 50px;
+          padding-top: 50px;
+          position: relative;
+         }
+
+         .a {
+          text-decoration: none;
+         }
+         .myButton {
+    -moz-box-shadow:inset 0px 1px 0px 0px #c7b5bf;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #c7b5bf;
+    box-shadow:inset 0px 1px 0px 0px #c7b5bf;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #96858F), color-stop(1, #685862));
+    background:-moz-linear-gradient(top, #96858F 5%, #685862 100%);
+    background:-webkit-linear-gradient(top, #96858F 5%, #685862 100%);
+    background:-o-linear-gradient(top, #96858F 5%, #685862 100%);
+    background:-ms-linear-gradient(top, #96858F 5%, #685862 100%);
+    background:linear-gradient(to bottom, #96858F 5%, #685862 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#96858F', endColorstr='#685862',GradientType=0);
+    background-color:#96858F;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #c7b5bf;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:14px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+  }
+  .myButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #685862), color-stop(1, #96858F));
+    background:-moz-linear-gradient(top, #685862 5%, #96858F 100%);
+    background:-webkit-linear-gradient(top, #685862 5%, #96858F 100%);
+    background:-o-linear-gradient(top, #685862 5%, #96858F 100%);
+    background:-ms-linear-gradient(top, #685862 5%, #96858F 100%);
+    background:linear-gradient(to bottom, #685862 5%, #96858F 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#685862', endColorstr='#96858F',GradientType=0);
+    background-color:#685862;
+    text-decoration: none;
+    color:#ffffff;
+  }
+  .myButton:active {
+    position:relative;
+    top:1px;
+    text-decoration: none;
+    color:#ffffff;
+
+
+  }
+         
+  .titleLine {
+    position: relative;
+  }
+  .title {
+    width:275px;
+  }
+  .homea {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    width:100px;
+    height: 30px;
+  }
+  .hello {
+    padding-bottom: 10px;
+    text-decoration: none;
+  }
+
+
+  .control {
+      font-family: arial;
+      display: block;
+      position: relative;
+      padding-left: 32px;
+      margin-bottom: 5px;
+      padding-top: 3px;
+      cursor: pointer;
+      font-size: 12px;
+  }
+      .control input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+      }
+  .control_indicator {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: 18px;
+      width: 18px;
+      background: #e6e6e6;
+      border: 0px solid #000000;
+  }
+  .control-radio .control_indicator {
+      border-radius: undefined%;
+  }
+
+  .control:hover input ~ .control_indicator,
+  .control input:focus ~ .control_indicator {
+      background: #cccccc;
+  }
+
+  .control input:checked ~ .control_indicator {
+      background: #4cdfcd;
+  }
+  .control:hover input:not([disabled]):checked ~ .control_indicator,
+  .control input:checked:focus ~ .control_indicator {
+      background: #0e6647d;
+  }
+  .control input:disabled ~ .control_indicator {
+      background: #e6e6e6;
+      opacity: 0.6;
+      pointer-events: none;
+  }
+  .control_indicator:after {
+      box-sizing: unset;
+      content: '';
+      position: absolute;
+      display: none;
+  }
+  .control input:checked ~ .control_indicator:after {
+      display: block;
+  }
+  .control-checkbox .control_indicator:after {
+      left: 7px;
+      top: 3px;
+      width: 3px;
+      height: 8px;
+      border: solid #ffffff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+  }
+  .control-checkbox input:disabled ~ .control_indicator:after {
+      border-color: #7b7b7b;
+  }
+
+
+  /*
+  .gm-style-iw {
+    position: relative;
+
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+    border: 1px solid rgba(72, 181, 233, 0.6);
+    border-radius: 2px 2px 10px 10px;
+    padding:10px;
+  }
+  */
+
+      </style>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+      <div id="search">
+      
+        <div class="titleLine">
+           <div class="title"><h2 href="/login">Neighbour-Pipeline</h2></div>
+           <div class="homea"><a href="/profile/1" class="myButton">My_Profile</a></div>
+           
+        </div>
+        
+        
+      <div class="row content">
+      <div class="col-sm-3 sidenav" id="role">
+        <form id="frm1" action="" method="get">
+        <div class="hello"><h3><br>Hello, Sicong Hu</br></h3></div>
+        
+
+        <h4>Choose your role?</h4>
+        
+        <select name="menu" style="color:#FFFFFF;background-color:#6D7993;font-weight:bold;font-size:14pt;">
+        <option value="#">Mentor</option>
+        <option value="#">Mentee</option>
+        </select>
+        
+
+        
+       
+        <div class="hello"></div>
+
+        <h4>What do you want? Please select one applys:</h4>
+
+        
+        <select name="menu" style="color:#FFFFFF;background-color:#6D7993;font-weight:bold;font-size:14pt;">
+        <option value="#">Java</option>
+        <option value="#">Python</option>
+        <option value="#">PHP</option>
+        <option value="#">C</option>
+        <option value="#">C#</option>
+        <option value="#">C++</option>
+        <option value="#">Ruby</option>
+        <option value="#">Javascript</option>
+        <option value="#">HTML</option>
+        </select>
+        
+        
+
+
+
+
+        
+      <div class="hello"></div>
+
+        <h4>Choose your location?</h4>
+
+        <select name="menu" style="color:#FFFFFF;background-color:#6D7993;font-weight:bold;font-size:14pt;">
+        <option value="#">Use current location</option>
+        <option value="#">Type in your location</option>
+        </select>
+      
+      <div class="hello"></div>
+
+        <h4>Range?</h4>
+      <div class="row">
+       
+        <div class="col-sm-2"><textarea rows="1" cols="5"></textarea> </div>
+      </div>
+        <input tyep="submit" value="submit" style="visibility: hidden;">
+      </form>
+
+        <div class="hello"></div>
+
+        <a href="#" class="myButton" onclick="change();">Search</a>
+        
+      </div>
+
+      <p id="demo"></p>
+
+      <div class="col-sm-9" id="mapcolumn">
+        <a href="/resultgrid" class="myButton">Show all</a>
+      <hr>
+        
+        <div id="map"></div>
+      </div>
+    </div>
+    </div>
+      <script>
+        var markers;
+        function initMap() {
+          var uluru = {lat: -37.8063, lng: 144.844};
+          var mel = {lat: -37.8136, lng: 144.9631};
+          var middle = {lat: -37.8100, lng: 144.9031};
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: uluru
+          });
+
+          var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+          });
+
+          var marker2 = new google.maps.Marker({
+            position: mel,
+            map: map
+          });
+
+          var marker3 = new google.maps.Marker({
+            position: middle,
+            map: map,
+            icon: "http://www.codeshare.co.uk/images/blue-pin.png"
+          });
+
+
+          var contentString = '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<h1 id="firstHeading" class="firstHeading">David</h1>'+
+              '<div id="bodyContent">'+
+              '<p>David, 15 years old, want to find a Mentor</p>'+'<a href="/profile/2" class="myButton">View Detail to Chat</a>'+
+              '</div>'+
+              '</div>';
+
+          var contentString2 = '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<h1 id="firstHeading" class="firstHeading">Ada Brown</h1>'+
+              '<div id="bodyContent">'+
+              '<p>Ada Brown, 60 years old, want to find a Mentor</p>'+'<a href="/profile/2" class="myButton">View Detail to Chat</a>'+
+              '</div>'+
+              '</div>';
+
+          var contentString3 = '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<h1 id="firstHeading" class="firstHeading">Sicong Hu</h1>'+
+              '<div id="bodyContent">'+
+              '<p>Sicong Hu, 20 years old, want to find a Mentee</p>'+'<a href="/profile/1" class="myButton" onclick="removeMarker()">Delete</a>'+
+              '</div>'+
+              '</div>';
+
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 250
+          });
+
+          var infowindow2 = new google.maps.InfoWindow({
+            content: contentString2,
+            maxWidth: 250
+          });
+          var infowindow3 = new google.maps.InfoWindow({
+            content: contentString3,
+            maxWidth: 150
+          });
+
+
+          
+            infowindow.open(map, marker);
+          
+
+
+          
+            infowindow2.open(map, marker2);
+            infowindow3.open(map, marker3);
+          
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+          marker2.addListener('click', function() {
+            infowindow2.open(map, marker2);
+          });  
+
+          marker3.addListener('click', function() {
+            infowindow3.open(map, marker3);
+          });
+          markers =marker3;
+        }
+
+        function change(){
+          document.getElementById("mapcolumn").style.visibility="visible";
+          /*var x = document.getElementById("frm1");
+          var range = x.elements[12].value;
+          
+          document.getElementById("demo").innerHTML = text;*/
+          
+        }
+
+
+
+        function removeMarker(){
+          markers.setMap(null);
+        }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcciXXZv1M9vOlclBjMmHoc3GmyVvFOmo&callback=initMap">
+      </script>
+    </body>
+  </html>
+        

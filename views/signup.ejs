@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/signup.css"/>
+    <script type="text/javascript" src="/javascripts/login.js"></script>
+    <input type="button" id="login" value="log in" onclick="SignIn();"/>
+</head>
+
+<body>
+<div id="signUp_frame">
+    <h1>Sign Up</h1>
+    <form action="save.php" method="post">
+        <table style= "position:relative;margin:auto;">
+            <tr>
+                <td><label class="label_input">FirstName:</label> </td>
+                <td><input type="text" name="FisrtName"/></td>
+            </tr>
+            <tr><td><label class="label_input">LastName:</label></td>
+                <td><input type="text" name="LastName"/></td>
+            </tr>
+            <tr>
+                <td><label class="label_input">Gender:</label></td>
+                   <td> <label class="label_input">Male</label>
+                       <input type="radio" value="1"  name="gender" />
+                        <label class="label_input">Female</label>
+                        <input type="radio" value="2"  name="gender" /></td>
+            </tr>
+            <tr>
+                <td><label class="label_input">Date of Birthday:</label></td>
+                <td><input id="meeting" type="date" value=""/></td>
+            </tr>
+            <tr>
+                <td> <label class="label_input" for="email">Your email:</label></td>
+                <td> <input type="email" id="email" placeholder="Enter email"></td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="label_input">password:</label>
+                </td>
+                <td>
+                    <input type="password" name="pwd" value="" id="pwd">
+                </td>
+            </tr>
+            <tr>
+                <td><label class="label_input">conform your password:</label></td>
+                <td><input type="password" name="verpwd" value="" id="repwd"></td>
+            </tr>
+        </table>
+        <input name="confirm"  type="checkbox"  value="conform" id="cb"/>I agree that the above information is used by this website.
+        <br>
+        <input type="button" id="SignUP" value="Sign Up" onclick="success();"/>
+
+
+
+
+
+    </form>
+</div>
+</body>
